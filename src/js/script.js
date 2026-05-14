@@ -11,11 +11,12 @@ async function configurarcamera(){
         //solicita permissao para acessar camera do user
         const midia = await navigator.mediaDevices.getUserMedia({
             //habilita a camera traseira do celular
-            video:{facingMode:"enviroment"},
+            video:{facingMode:"environment"},
             audio:false
-        })
+        });
         //atribui o fluxo da camera ao elemento de video para visualizar
         videoelement.srcObject = midia;
+        videoelement.play();
 
     }catch(erro){
         resultado.innerText="erro ao acessar a camera", erro
@@ -36,6 +37,9 @@ botaoscan.onclick =async()=>{
     //ajusta o tamanho do canvas, interno para ser igual o do video
     canvas.width = videoelement.videoWidth;
     canvas.height = videoelement.videoHeight;
+
+    contexto.setTransform(1,0,0,1,0,0);
+    context.filter = 'contrast(1.2) grayscale(1)';
 
     //desenha o frame atual do video dentro do canvas(tira a foto)
     contexto.drawImage(videoelement,0,0,canvas,canvas.height);
