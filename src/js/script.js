@@ -6,20 +6,17 @@ const canvas = document.getElementById("canvas");
 
 //MÉTODO LIGAR CÂMERA
 
-async function configurarcamera(){
-    try{
-        //solicita permissao para acessar camera do user
+async function configurarCamera() {
+    try {
         const midia = await navigator.mediaDevices.getUserMedia({
-            //habilita a camera traseira do celular
-            video:{facingMode:"environment"},
-            audio:false
+            video: { facingMode: "environment" }, 
+            audio: false
         });
-        //atribui o fluxo da camera ao elemento de video para visualizar
         videoelement.srcObject = midia;
+        //garantir que o vídeo comece a tocar
         videoelement.play();
-
-    }catch(erro){
-        resultado.innerText="erro ao acessar a camera", erro
+    } catch (erro) {
+        resultado.innerText = "Erro ao acessar a câmera: " + erro.message;
     }
 }
 //executa a função para habilitar a camera
